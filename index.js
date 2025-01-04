@@ -1,6 +1,6 @@
     const express = require("express");
     const mongoose = require("mongoose");
-    const bcrypt = require("bcrypt");
+    const bcrypt = require("bcryptjs");
     const jwt = require("jsonwebtoken");
     const cors = require("cors");
     const puppeteer = require("puppeteer");
@@ -10,7 +10,7 @@
 
     // Initialize Express
     const app = express();
-    const PORT = 5000;
+    const PORT = process.env.PORT || 5000;
 
     // Middleware
     app.use(express.json());
