@@ -1,30 +1,24 @@
-# Use Puppeteer's base image for compatibility
 FROM ghcr.io/puppeteer/puppeteer:19.7.2
 
-# Set environment variables for Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
 
-# Set the working directory
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# Copy package files and adjust permissions
 COPY package*.json ./
-
-# Adjust ownership and permissions for the working directory
-RUN chown -R pptruser:pptruser /usr/src/app
-
-# Switch to the Puppeteer's default user
-USER pptruser
+RUN chmod 644 package*.json
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Copy the rest of the application code
-COPY --chown=pptruser:pptruser . .
+COPY . .
 
-# Expose the port your application listens on
-EXPOSE 5000
+# Ensure proper permissions for Puppeteer's user
+RUN chmod -R 755 /usr/src/app
 
-# Run the application
+# Switch to Puppeteer's default user
+USER pptruser
+
 CMD ["node", "index.js"]
