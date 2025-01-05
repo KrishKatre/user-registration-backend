@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
-    "postinstall": "node -e \"require('puppeteer').createBrowserFetcher().download('131.0.6778.204')\""
+    "postinstall": "puppeteer install"
   },
   "keywords": [],
   "author": "",
