@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 
 # Copy package files and adjust permissions
 COPY package*.json ./
-
+COPY .env /usr/src/app/.env
 # Install dependencies
 RUN npm ci
 
