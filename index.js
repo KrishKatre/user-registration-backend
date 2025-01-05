@@ -47,7 +47,9 @@
         try {
             const browser = await puppeteer.launch({
                 headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox']});
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
+                PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: false
+            });
             const page = await browser.newPage();
     
             // Navigate to the URL
