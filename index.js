@@ -6,7 +6,7 @@
     const puppeteer = require("puppeteer");
     const bodyParser = require("body-parser");
     const tokenBlacklist = new Set();
-    require("dotenv").config({path: "./key.env"});
+    require("dotenv").config();
 
     // Initialize Express
     const app = express();
