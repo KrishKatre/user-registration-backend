@@ -323,7 +323,7 @@
     
         try {
             // Launch Puppeteer and fetch the product image
-            const browser = await puppeteer.launch();
+            const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"] });
             const page = await browser.newPage();
     
             await page.goto(productUrl, { waitUntil: "load", timeout: 0 });
@@ -337,6 +337,7 @@
             await browser.close();
     
             if (imageUrl) {
+                console.log("Product Image URL:", imageUrl);
                 return res.status(200).json({ imageUrl });
             } else {
                 return res.status(404).json({ error: "Product image not found." });
