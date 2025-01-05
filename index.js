@@ -27,7 +27,8 @@
         username: { type: String, required: true, unique: true },
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
-    });
+    }, 
+    { collection: "users" }); // Set the collection name to "users);
 
     const User = mongoose.model("User", userSchema);
     
@@ -95,7 +96,7 @@
             // Save the user
             const newUser = new User({ username, email, password: hashedPassword });
             await newUser.save();
-
+            console.log("User saved:", newUser);
             res.status(201).json({ message: "User registered successfully." });
         } catch (err) {
             console.error("Error during registration:", err);
