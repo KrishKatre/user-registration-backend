@@ -323,7 +323,7 @@
     
         try {
             // Launch Puppeteer and fetch the product image
-            const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"] });
+            const browser = await puppeteer.launch({ headless: true,executablePath: "/usr/bin/google-chrome", args: ["--no-sandbox", "--disable-setuid-sandbox"] });
             const page = await browser.newPage();
     
             await page.goto(productUrl, { waitUntil: "load", timeout: 0 });
