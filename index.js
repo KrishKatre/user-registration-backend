@@ -47,19 +47,27 @@
         try {
             const browser = await puppeteer.launch({
                 headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox', '--single-process', '--no-zygote'],
-                executablePath: process.env.NODE_ENV == "production"
-                ? process.env.PUPPETEER_EXECUTABLE_PATH
-                : puppeteer.executablePath(),
+                args: [
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-accelerated-2d-canvas',
+                    '--no-first-run',
+                    '--no-zygote',
+                    '--single-process',
+                    '--disable-gpu'
+                ],
+                executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
             });
+    
             const page = await browser.newPage();
     
             // Navigate to the URL
             await page.goto(url, { waitUntil: "load", timeout: 0 });
     
-            // Extract the product image URL (adjust selector based on the website)
+            // Extract the product image URL
             const imageUrl = await page.evaluate(() => {
-                const imgElement = document.querySelector("img"); // Adjust selector to match product image
+                const imgElement = document.querySelector("img"); // Update selector as needed
                 return imgElement ? imgElement.src : null;
             });
     
@@ -76,6 +84,7 @@
             return null;
         }
     };
+    
 
     const SECRET_KEY = process.env.SECRET_KEY;
 
